@@ -5,14 +5,14 @@
 class Player {
  public:
     Player(std::string name, char color);
-    std::string getName();
-    char getColor();
-    int getScore();
-    void setScore(int score);
+    void SetScore(int score);
+    std::string GetName();
+    char GetColor();
+    int GetScore();    
+ 
  private:
     std::string name_;
     char color_;
     int score_;
 };
-
 #endif  // _HOME_VSWNGJS_TERM_PLAYER_H_"
