@@ -31,14 +31,15 @@ void Judge::StartGame() {
   int size = matrix.size();
   char turn_flag = 'B';
   while (true) {
+    std::cout << turn_flag << std::endl;
     if (!(this->IsGameContinue(turn_flag))) {
       break;
     }
-    if (this->candidate_.size() == 0) {
+    if (this->candidate_.size() == 0) { //후보군이 없으므로 턴이 넘어가야함.
       board_->PrintBoard();
       std::cout << "There is no space to put it." << std::endl;
 
-      this->ChangeTurn(turn_flag);
+      turn_flag = this->ChangeTurn(turn_flag);
       std::cout << this->GetPlayerName(turn_flag) << " Player's Turn." << std::endl;
       continue;
     }
@@ -55,7 +56,7 @@ void Judge::StartGame() {
     this->GetScore();
     p1_->GetInfo();
     p2_->GetInfo();  
-    this->ChangeTurn(turn_flag);
+    turn_flag = this->ChangeTurn(turn_flag);
   }
   
   std::string result = this->CheckWinner();

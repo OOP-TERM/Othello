@@ -11,10 +11,8 @@ std::string Player::GetName() { return name_; }
 char Player::GetColor() { return color_; }
 int Player::GetScore() { return score_; }
 void Player::GetInfo() {
-    std::cout << "\"\"\"\n현재 점수" << std::endl;
     std::cout << std::endl;
     std::string sen = "Player ";
-    sen += this->GetName() + " : " + std::to_string(this->GetScore());
+    sen += this->GetName() + "'s Score : " + std::to_string(this->GetScore());
     std::cout << sen << std::endl;
-    std::cout << "\"\"\"" << std::endl;
 }
