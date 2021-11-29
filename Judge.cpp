@@ -12,12 +12,60 @@ Judge* Judge::GetInstance() {
   if (instance_ == nullptr) { instance_ = new Judge(); }
   return instance_;
 }
-Judge::Judge() {}
-void Judge::SetBoard(Board* board) { board_ = board; } //보드와 심판 연결
-void Judge::SetPlayers(Player* p1, Player* p2) {       //플레이어들과 심판 연결
-  p1_ = p1;
-  p2_ = p2;
+Judge::Judge() {
+  this->row_ = 0;
+  this->column_ = 0;
+  this->turn_ = 0;
+  Player* p1 = new Player();
+  Player* p2 = new Player();
+  this->p1_ = p1;
+  this->p2_ = p2;
+  this->candidate_;
+  this->board_ = Board::GetInstance();
 }
+
+void Judge::StartGame() {
+  this->CreateBoard();
+  this->SetUsers();
+  std::vector<std::vector<char>> matrix = board_->Getmatrix();
+  int size = matrix.size();
+  char turn_flag = 'B';
+  while (true) {
+    if (!(this->IsGameContinue(turn_flag))) {
+      break;
+    }
+    if (this->candidate_.size() == 0) {
+      board_->PrintBoard();
+      std::cout << "There is no space to put it." << std::endl;
+
+      this->ChangeTurn(turn_flag);
+      std::cout << this->GetPlayerName(turn_flag) << " Player's Turn." << std::endl;
+      continue;
+    }
+    board_->PrintBoard();
+    std::cout << this->GetPlayerName(turn_flag) << " Player's Turn." << std::endl;
+
+    while (!this->PlayerInput()) {
+      std::cout << "It's not the right choice." << std::endl;
+    }
+
+    this->ModStoneStatus(this->row_, this->column_, turn_flag);
+    board_->Restore();
+
+    this->GetScore();
+    p1_->GetInfo();
+    p2_->GetInfo();  
+    this->ChangeTurn(turn_flag);
+  }
+  
+  std::string result = this->CheckWinner();
+  std::cout << "result : " << result << std::endl;
+}
+// void Judge::SetBoard(Board* board) { board_ = board; } //보드와 심판 연결
+// void Judge::SetPlayers(Player* p1, Player* p2) {       //플레이어들과 심판 연결
+//   p1_ = p1;
+//   p2_ = p2;
+// }
 
 
 bool Judge::IsGameContinue(char color) {
@@ -108,36 +156,61 @@ bool Judge::CheckValid(int row, int col, char color) {
   }
   return false;
 }
-bool Judge::CheckCnt() {
-  int dx[8] = {0, 0, -1, 1, -1, -1, 1, 1};
-  int dy[8] = {-1, 1, 0, 0, -1, 1, -1, 1};
-  // 8 방향 점검
-  // 아래, 위, 왼, 오, 왼아, 왼위, 오아, 오위
+// bool Judge::CheckCnt() {
+//   int dx[8] = {0, 0, -1, 1, -1, -1, 1, 1};
+//   int dy[8] = {-1, 1, 0, 0, -1, 1, -1, 1};
+//   // 8 방향 점검
+//   // 아래, 위, 왼, 오, 왼아, 왼위, 오아, 오위
+// }
+void Judge::SetUsers() {
+  std::string temp_username = "";
+  std::string temp_color = "";
+  std::cout << "Enter Player1's name: ";
+  std::cin >> temp_username;
+  std::cout << "Enter Player1's color: ";
+  std::cin >> temp_color;
+  p1_->SetName(temp_username);
+  p1_->SetColor(temp_color.front());
+
+  std::cout<< "Enter Player2's name: ";
+  std::cin >> temp_username;
+  std::cout << "Enter Player2's color: ";
+  std::cin >> temp_color;
+  p2_->SetName(temp_username);
+  p2_->SetColor(temp_color.front());
 }
-void Judge::PlayerInput() {
-  // std::string p1_name, p2_name;
-  // char p1_color, p2_color;
-  // int board_size, row, col;
 
-  // std::cout << "Enter the size of board: " << std::endl;
-  // std::cin >> board_size;
-  // std::cout << "Enter Player1's name: " << std::endl;
-  // std::cin >> p1_name;
-  // std::cout << "Enter Player1's color: " << std::endl;
-  // std::cin >> p1_color;
-  // std::cout << "Enter Player2's name: " << std::endl;
-  // std::cin >> p2_name;
-  // std::cout << "Enter Player2's color: " << std::endl;
-  // std::cin >> p2_color;
+void Judge::CreateBoard() {
+  std::string input = "";
+  int size = 0;
+  
+  std::cout << "Enter the size of board: ";
+  std::cin >> input;
+  size = atoi(input.c_str());
+  while (size % 2 == 1 || size < 4 ) {
+    std::cout << "Enter an even number of 6 or more: ";
+    std::cin >> input;
+    size = atoi(input.c_str());
+  }
+  (this->board_)->SetSize(size);
+} 
 
-  // board_->SetSize(board_size);
-  // p1_ = new Player(p1_name, p1_color);
-  // p2_ = new Player(p2_name, p2_color);
+bool Judge::PlayerInput() {
+  std::string input_row = "";
+  std::string input_col = "";
+  std::cout << "Where will you put? write row, column value: ";
+  std::cin >> input_row >> input_col;
 
-  // while (!GameFinish()) {
-  //   std::cout << "Where will you put?: " << std::endl;
-  //   //
-  // }
+  this->row_ = atoi(input_row.c_str());
+  this->column_ = atoi(input_col.c_str());
+
+  std::vector<std::vector<char>> matrix = board_ -> Getmatrix();
+  int size = matrix.size();
+
+  if (this->row_ >= 0 && this->row_ < size && this->column_ >= 0 && this->column_ < size && matrix[this->row_][this->column_] == '*') {
+    return true;
+  }
+  return false;
 }
 void Judge::SignStone(int row, int col, char color) {
   /*Board의 돌을 넣기 위해 board클래스에 좌표와 값을 보냄*/
@@ -239,5 +312,14 @@ std::string Judge::CheckWinner() {
     return p2_->GetName();
   } else {
     return "Draw";
+  }
+}
+
+std::string Judge::GetPlayerName(char color) {
+  if (p1_->GetColor() == color) {
+    return p1_->GetName();
+  }
+  else {
+    return p2_->GetName();
   }
 }

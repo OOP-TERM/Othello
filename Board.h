@@ -12,6 +12,7 @@ class Board {                                     // 게임 내 보드는 한개
   std::vector<std::vector<char>> Getmatrix();
   bool IsFull();
   bool IsOnlyOne();
+  void Restore();
 
  private:
   Board();

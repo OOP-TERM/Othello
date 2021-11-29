@@ -16,6 +16,7 @@ void Board::SetSize(int size) {     //벡터의 size by size 설정 및 '.'로 �
   matrix_[val][val - 1] = 'W';
   matrix_[val - 1][val] = 'W';
 }
+
 void Board::PutStone(int x, int y, char color) {            //x, y
   matrix_[x][y] = color;
 }
@@ -61,4 +62,14 @@ bool Board::IsOnlyOne() {
     return false;
   }
   return true;
+}
+
+void Board::Restore() {
+  for (int i = 0; i < matrix_.size(); i++) {
+    for (int j = 0; j < matrix_[i].size(); j++) {
+      if(matrix_[i][j] == '*') {
+        this->PutStone(i, j, '.');
+      }
+    }
+  }
 }
