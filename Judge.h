@@ -14,8 +14,8 @@ class Judge {
    bool CheckValid(int row, int col);
    bool CheckCnt();
    void PlayerInput();
-   void SignStone(int row, int col);
-   void ModStoneStatus();
+   void SignStone(int row, int col, char color);
+   void ModStoneStatus(int row, int col, char color);
    std::string CheckWinner();
 
  private:

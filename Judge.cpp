@@ -21,7 +21,9 @@ bool Judge::GameFinish() {
   // 위의 경우가 아니면 false
   return false;
 }
-bool Judge::CheckValid(int row, int col) {}
+bool Judge::CheckValid(int row, int col) {
+
+}
 bool Judge::CheckCnt() {
   int dx[8] = {0, 0, -1, 1, -1, -1, 1, 1};
   int dy[8] = {-1, 1, 0, 0, -1, 1, -1, 1};
@@ -29,32 +31,95 @@ bool Judge::CheckCnt() {
   // 아래, 위, 왼, 오, 왼아, 왼위, 오아, 오위
 }
 void Judge::PlayerInput() {
-  std::string p1_name, p2_name;
-  char p1_color, p2_color;
-  int board_size, row, col;
+  // std::string p1_name, p2_name;
+  // char p1_color, p2_color;
+  // int board_size, row, col;
 
-  std::cout << "Enter the size of board: " << std::endl;
-  std::cin >> board_size;
-  std::cout << "Enter Player1's name: " << std::endl;
-  std::cin >> p1_name;
-  std::cout << "Enter Player1's color: " << std::endl;
-  std::cin >> p1_color;
-  std::cout << "Enter Player2's name: " << std::endl;
-  std::cin >> p2_name;
-  std::cout << "Enter Player2's color: " << std::endl;
-  std::cin >> p2_color;
+  // std::cout << "Enter the size of board: " << std::endl;
+  // std::cin >> board_size;
+  // std::cout << "Enter Player1's name: " << std::endl;
+  // std::cin >> p1_name;
+  // std::cout << "Enter Player1's color: " << std::endl;
+  // std::cin >> p1_color;
+  // std::cout << "Enter Player2's name: " << std::endl;
+  // std::cin >> p2_name;
+  // std::cout << "Enter Player2's color: " << std::endl;
+  // std::cin >> p2_color;
 
-  board_->SetSize(board_size);
-  p1_ = new Player(p1_name, p1_color);
-  p2_ = new Player(p2_name, p2_color);
+  // board_->SetSize(board_size);
+  // p1_ = new Player(p1_name, p1_color);
+  // p2_ = new Player(p2_name, p2_color);
 
-  while (!GameFinish()) {
-    std::cout << "Where will you put?: " << std::endl;
-    //
+  // while (!GameFinish()) {
+  //   std::cout << "Where will you put?: " << std::endl;
+  //   //
+  // }
+}
+void Judge::SignStone(int row, int col, char color) {
+  /*Board의 돌을 넣기 위해 board클래스에 좌표와 값을 보냄*/
+  board_->PutStone(row, col, color);
+}
+void Judge::ModStoneStatus(int row, int col, char color) {
+ /* 돌을 놓은 뒤 상대편 돌들 뒤집기 위한 함수*/
+  int dx[8] = {0, 0, -1, 1, -1, -1, 1, 1};
+  int dy[8] = {-1, 1, 0, 0, -1, 1, -1, 1};
+
+  std::vector<std::vector<char>> matrix = board_->Getmatrix();
+  int size = matrix.size();
+  char op_color;
+  if(color == 'B') {      //놓으려는 플레이어의 돌 색깔이 black이면
+    op_color = 'W';
+  }
+  else {
+    op_color = 'B';
+  }
+  //직접 돌을 넣은 위치의 board 상태를 최신화.
+  this->SignStone(row, col, color);
+
+
+  for (int drt = 0; drt < 8; drt++) {
+    int tprow = row;
+    int tpcol = col; 
+    int count = 0;
+    int istrue = 0;
+
+    for (int i = 0; i < size; i++ ) {
+      tprow += dx[drt];
+      tpcol += dy[drt];
+
+      if (tprow < 0 || tprow >= size || tpcol < 0 || tpcol >= size) {
+        break;
+      }
+      if (matrix[tprow][tpcol] == color) {
+        istrue = 1;
+        break; 
+      }
+      if (matrix[tprow][tpcol] == op_color) {     //뒤집어야 할 돌 대상
+        count++;
+      }
+      if (matrix[tprow][tpcol] == '.' || matrix[tprow][tpcol] == '*') {
+        break;
+      }
+    }
+
+    if(istrue && count > 0) {       //뒤집어야 할 돌이 있다는 것을 의미
+      tprow = row;
+      tpcol = col;
+      for (int i = 0; i < size; i++) {
+        tprow += dx[drt];
+        tpcol += dy[drt];
+
+        if (tprow < 0 || tprow >= size || tpcol < 0 || tpcol >= size) {
+          break;
+        }
+        if (matrix[tprow][tpcol] == color) {
+          break;
+        }
+        this->SignStone(tprow, tpcol, color);
+      }
+    }
   }
 }
-void Judge::SignStone(int row, int col) {}
-void Judge::ModStoneStatus() {}
 void Judge::GetScore() {
   int b_cnt = 0;
   int w_cnt = 0;
