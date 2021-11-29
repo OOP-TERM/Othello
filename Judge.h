@@ -10,16 +10,19 @@ class Judge {
    void SetBoard(Board* board);
    void SetPlayers(Player* p1, Player* p2);
    void GetScore();
-   bool GameFinish();
-   bool CheckValid(int row, int col);
+   bool IsGameContinue(char color);
+   bool CheckValid(int row, int col, char color);
    bool CheckCnt();
    void PlayerInput();
    void SignStone(int row, int col, char color);
    void ModStoneStatus(int row, int col, char color);
+   char ChangeTurn(char color);
    std::string CheckWinner();
 
  private:
    Judge();
+   int turn_;
+   std::vector<std::pair<int, int>> candidate_;
    static Judge* instance_;
    Board* board_;
    Player* p1_;

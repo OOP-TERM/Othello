@@ -29,6 +29,10 @@ int main(int argc, char** argv) {
   Player* p2 = new Player(p2_name, p2_color);
 
   judge->SetPlayers(p1, p2);
+  // board->PrintBoard();
+  // judge->ModStoneStatus(2, 4, 'B');
+  std::cout << std::endl;
+
   board->PrintBoard();
   judge->GetScore();
   std::cout << p1->GetScore() << "   :   " << p2->GetScore() << std::endl;
@@ -45,4 +49,7 @@ int main(int argc, char** argv) {
 
   // }
   std::cout << judge->CheckWinner() << std::endl;
+
+  std::cout << judge->IsGameContinue('B') << std::endl;
+  board->PrintBoard();
 }

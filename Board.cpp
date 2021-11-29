@@ -29,3 +29,36 @@ void Board::PrintBoard() {                  //보드의 상태를 출력하는 �
 }
 std::vector<std::vector<char>> Board::Getmatrix() { return matrix_; }
 
+bool Board::IsFull() {
+  for (int i = 0; i < matrix_.size(); i++) {
+    for (int j = 0; j < matrix_[0].size(); j++) {
+      if (matrix_[i][j] == '.') {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+bool Board::IsOnlyOne() {
+  int p1 = 0;   // black 돌을 가진 플레이어라고 가정
+  int p2 = 0;   // white 돌을 가진 플레이어라고 가정
+
+  for (int i = 0; i < matrix_.size(); i++) {
+    for (int j = 0; j < matrix_[0].size(); j++) {
+      if (matrix_[i][j] == '.') {
+        continue;
+      }
+      if (matrix_[i][j] == 'B') {
+        p1++;
+      }
+      if (matrix_[i][j] == 'W') {
+        p2++;
+      }
+    }
+  }
+  if (p1 != 0 || p2 != 0) {
+    return false;
+  }
+  return true;
+}
