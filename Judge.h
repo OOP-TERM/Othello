@@ -1,5 +1,5 @@
-#ifndef _HOME_VSWNGJS_TERM_JUDGE_H_
-#define _HOME_VSWNGJS_TERM_JUDGE_H_
+#ifndef JUDGE_H_
+#define JUDGE_H_
 #include <string>
 #include <utility>
 #include <vector>
@@ -33,4 +33,4 @@ class Judge {
     Player* p2_;
 };
 
-#endif  // _HOME_VSWNGJS_TERM_JUDGE_H_"
+#endif  // JUDGE_H_"

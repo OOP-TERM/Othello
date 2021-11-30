@@ -1,5 +1,5 @@
-#ifndef _HOME_VSWNGJS_TERM_PLAYER_H_
-#define _HOME_VSWNGJS_TERM_PLAYER_H_
+#ifndef PLAYER_H_
+#define PLAYER_H_
 #include <string>
 
 class Player {
@@ -18,4 +18,4 @@ class Player {
 };
 
 
-#endif  // _HOME_VSWNGJS_TERM_PLAYER_H_"
+#endif  // PLAYER_H_"

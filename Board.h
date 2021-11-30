@@ -1,5 +1,5 @@
-#ifndef _HOME_VSWNGJS_TERM_BOARD_H_
-#define _HOME_VSWNGJS_TERM_BOARD_H_
+#ifndef BOARD_H_
+#define BOARD_H_
 #include <string>
 #include <vector>
 
@@ -20,4 +20,4 @@ class Board {  // 게임 내 보드는 한개이므로 sigleton 활용
   std::vector<std::vector<char>> matrix_;         // matrix 변수
 };
 
-#endif  // _HOME_VSWNGJS_TERM_BOARD_H_"
+#endif  // BOARD_H_"
