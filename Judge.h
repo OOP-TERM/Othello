@@ -22,11 +22,16 @@ class Judge {
     char ChangeTurn(char color);
     std::string GetPlayerName(char color);
     std::string CheckWinner();
+    std::vector<std::pair<int, int> > GetCandidate();
+    Board* GetBoard();
+    Player* GetP1();
+    Player* GetP2();   
+
 
  private:
     Judge();
     int turn_, row_, col_;
-    std::vector<std::pair<int, int>> candidate_;
+    std::vector<std::pair<int, int> > candidate_;
     static Judge* instance_;
     Board* board_;
     Player* p1_;

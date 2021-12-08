@@ -51,11 +51,11 @@ main : main.cpp Board.o Player.o Judge.o  $(GTEST_HEADERS)
 
 # TODO: Change 'Student_test.cpp' to your StringNode
 
-# TreeUtil_test.o : TreeUtil_test.cpp $(GTEST_HEADERS)
-# 	g++ $(CPPFLAGS) $(CXXFLAGS) --std=c++17 -c TreeUtil_test.cpp -o $@
+othello_test.o : othello_test.cpp $(GTEST_HEADERS)
+	g++ $(CPPFLAGS) $(CXXFLAGS) --std=c++17 -c othello_test.cpp -o $@
 
 # TODO: Change 'Student_test.o' and 'Student.o' to your object targets
-# test : TreeUtil_test.o Node.o IntNode.o StringNode.o TreeUtil.o gtest_main.a
-# 	g++ $(CPPFLAGS) $(CXXFLAGS) --std=c++17 $^ -o $@
+test : othello_test.o Board.o Player.o Judge.o gtest_main.a
+	g++ $(CPPFLAGS) $(CXXFLAGS) --std=c++17 $^ -o $@
 
 .PHONY: all clean 
