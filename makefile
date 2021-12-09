@@ -46,22 +46,12 @@ Judge.o : Judge.h Judge.cpp Board.o Player.o
 main : main.cpp Board.o Player.o Judge.o  $(GTEST_HEADERS)
 	g++ --std=c++17 main.cpp Board.o Player.o Judge.o -o $@
 
-<<<<<<< HEAD
 # TODO: g-test
 othello_test.o : othello_test.cpp $(GTEST_HEADERS)
 	g++ $(CPPFLAGS) $(CXXFLAGS) --std=c++17 -c othello_test.cpp -o $@
 
 # TODO: test
 test : othello_test.o Judge.o Board.o Player.o gtest_main.a
-=======
-# TODO: Change 'Student_test.cpp' to your StringNode
-
-othello_test.o : othello_test.cpp $(GTEST_HEADERS)
-	g++ $(CPPFLAGS) $(CXXFLAGS) --std=c++17 -c othello_test.cpp -o $@
-
-# TODO: Change 'Student_test.o' and 'Student.o' to your object targets
-test : othello_test.o Board.o Player.o Judge.o gtest_main.a
->>>>>>> 1372149c6336bb0186fb0e1becf28fc734f2dfc5
 	g++ $(CPPFLAGS) $(CXXFLAGS) --std=c++17 $^ -o $@
 
 .PHONY: all clean 
