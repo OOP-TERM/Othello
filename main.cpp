@@ -3,7 +3,7 @@
 #include "Judge.h"
 #include "Player.h"
 
-int main(int argc, char** argv) {
+int main() {
     Judge* judge = Judge::GetInstance();
     judge->StartGame();
 }

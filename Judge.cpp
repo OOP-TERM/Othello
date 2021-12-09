@@ -20,7 +20,6 @@ Judge::Judge() {
   Player* p2 = new Player();
   this->p1_ = p1;
   this->p2_ = p2;
-  this->candidate_;
   this->board_ = Board::GetInstance();
 }
 /* StartGame : 게임 시작 및 진행을 하는 함수.
@@ -29,7 +28,7 @@ void Judge::StartGame() {
   std::cout << "Welcome to Othello\n" << std::endl;
   this->CreateBoard();
   this->SetPlayers();
-  std::vector<std::vector<char>> matrix = board_->Getmatrix();
+  std::vector<std::vector<char> > matrix = board_->Getmatrix();
   int size = matrix.size();
   char turn_flag = 'B';
   // black 돌이 먼저 시작하므로 초기값으로 'B' 설정
@@ -86,7 +85,7 @@ void Judge::StartGame() {
 /* IsGameContinue : 게임을 진행할 수 있는지 여부를 확인하는 함수 */
 bool Judge::IsGameContinue(char color) {
   // 한 차례에 양쪽 모두 서로 차례를 넘겨야 하는 경우
-  std::vector <std::vector <char>> matrix = board_->Getmatrix();
+  std::vector <std::vector <char> > matrix = board_->Getmatrix();
   int size = matrix.size();
 
   if (board_->IsFullBoard()) { return false; }
@@ -95,7 +94,7 @@ bool Judge::IsGameContinue(char color) {
   // 한가지 색의 돌만 존재하는 경우
 
   (this->candidate_).clear();
-  std::vector<std::pair<int, int>>().swap(this->candidate_);
+  std::vector<std::pair<int, int> >().swap(this->candidate_);
 
   for (int i = 0; i < size; i++) {    /* 후보군들을 알아내기 위한 부분 */
     for (int j = 0; j < size; j++) {
@@ -126,7 +125,7 @@ bool Judge::CheckValid(int row, int col, char color) {
   int dx[8] = {0, 0, -1, 1, -1, -1, 1, 1};  // 8 방향 점검
   int dy[8] = {-1, 1, 0, 0, -1, 1, -1, 1};
   // 아래, 위, 왼, 오, 왼아, 왼위, 오아, 오위
-  std::vector<std::vector<char>> matrix = board_->Getmatrix();
+  std::vector<std::vector<char> > matrix = board_->Getmatrix();
   int size = matrix.size();
   char op_color = '.';
 
@@ -207,7 +206,7 @@ void Judge::SetPlayers() {
 void Judge::SetScore() {
   int b_cnt = 0;
   int w_cnt = 0;
-  std::vector<std::vector<char>> matrix = board_->Getmatrix();
+  std::vector<std::vector<char> > matrix = board_->Getmatrix();
 
   for (int i = 0; i < matrix.size(); i++) {
     for (int j = 0; j < matrix[0].size(); j++) {
@@ -251,7 +250,7 @@ bool Judge::PlayerInput() {
 
   this->row_ = atoi(input_row.c_str());
   this->col_ = atoi(input_col.c_str());
-  std::vector<std::vector<char>> matrix = board_->Getmatrix();
+  std::vector<std::vector<char> > matrix = board_->Getmatrix();
   int size = matrix.size();
 
   if ((this->row_ >= 0) && (this->row_ < size) && (this->col_ >= 0)
@@ -269,7 +268,7 @@ void Judge::SignStone(int row, int col, char color) {
 void Judge::ModStoneStatus(int row, int col, char color) {
   int dx[8] = {0, 0, -1, 1, -1, -1, 1, 1};
   int dy[8] = {-1, 1, 0, 0, -1, 1, -1, 1};
-  std::vector<std::vector<char>> matrix = board_->Getmatrix();
+  std::vector<std::vector<char> > matrix = board_->Getmatrix();
   int size = matrix.size();
   char op_color;
 
@@ -349,3 +348,7 @@ std::string Judge::CheckWinner() {
     return "Draw";
   }
 }
+std::vector<std::pair<int, int> > Judge::GetCandidate() {return this -> candidate_;}
+Board* Judge::GetBoard() {return this -> board_;}
+Player* Judge::GetP1() {return this -> p1_;}
+Player* Judge::GetP2() {return this -> p2_;}  

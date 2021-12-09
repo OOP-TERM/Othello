@@ -14,7 +14,7 @@ Board::Board() {}
 /*SetSize : board의 size by size 설정 및 '.'로 값 초기화하는 함수 ,
  더하여 초기설정을 하는 함수.*/
 void Board::SetSize(int size) {
-  matrix_ = std::vector<std::vector<char>>(size, std::vector<char>(size, '.'));
+  matrix_ = std::vector<std::vector<char> >(size, std::vector<char>(size, '.'));
   matrix_[size / 2][size / 2] = 'B';
   matrix_[size / 2 - 1][size / 2 - 1] = 'B';
   matrix_[size / 2][size / 2 - 1] = 'W';
@@ -40,7 +40,7 @@ void Board::PrintBoard() {  // 보드의 상태를 출력하는 함수
   }
 }
 
-std::vector<std::vector<char>> Board::Getmatrix() { return matrix_; }
+std::vector<std::vector<char> > Board::Getmatrix() { return matrix_; }
 
 /*IsFullBoard() : 보드에 돌이 꽉 차있는지 확인하는 함수*/
 bool Board::IsFullBoard() {
