@@ -13,7 +13,7 @@ class Board {  // 게임 내 보드는 한개이므로 sigleton 활용
   bool IsFullBoard();
   bool HasOnlyOneType();
   void RestoreBoard();
-  
+
  private:
   Board();
   static Board* instance_;

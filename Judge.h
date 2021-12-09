@@ -25,7 +25,7 @@ class Judge {
     std::vector<std::pair<int, int> > GetCandidate();
     Board* GetBoard();
     Player* GetP1();
-    Player* GetP2();   
+    Player* GetP2();
 
 
  private:

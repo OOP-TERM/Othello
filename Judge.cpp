@@ -348,7 +348,9 @@ std::string Judge::CheckWinner() {
     return "Draw";
   }
 }
-std::vector<std::pair<int, int> > Judge::GetCandidate() {return this -> candidate_;}
+std::vector<std::pair<int, int> > Judge::GetCandidate() {
+  return this -> candidate_;
+}
 Board* Judge::GetBoard() {return this -> board_;}
 Player* Judge::GetP1() {return this -> p1_;}
-Player* Judge::GetP2() {return this -> p2_;}  
+Player* Judge::GetP2() {return this -> p2_;}
