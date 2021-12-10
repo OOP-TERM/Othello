@@ -235,7 +235,7 @@ void Judge::CreateBoard() {
   std::cin >> input;
   size = atoi(input.c_str());
   while ((size % 2 == 1) || (size < 4)) {
-    std::cout << "Enter an even number of 6 or more : ";
+    std::cout << "Enter an even number of 4 or more : ";
     std::cin >> input;
     size = atoi(input.c_str());
   }
