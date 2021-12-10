@@ -340,6 +340,7 @@ std::string Judge::GetPlayerName(char color) {
 /* CheckWinner :  점수를 비교해 승자의 이름, 
 혹은 비겼을 경우 "Draw"를 반환해주는 함수 */
 std::string Judge::CheckWinner() {
+  this->SetScore();
   if (p1_->GetScore() > p2_->GetScore()) {
     return p1_->GetName();
   } else if (p1_->GetScore() < p2_->GetScore()) {
